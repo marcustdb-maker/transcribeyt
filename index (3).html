@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TranscribeYT - Transcrição de Vídeos do YouTube</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .hero-bg {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+        }
+
+        .video-demo {
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white">
+    <!-- Navbar -->
+    <nav class="bg-zinc-900 border-b border-zinc-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-2xl">YT</div>
+                <span class="heading-font text-2xl font-semibold tracking-tight">TranscribeYT</span>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8 text-sm">
+                <a href="#funciona" class="hover:text-blue-400 transition-colors">Como funciona</a>
+                <a href="#precos" class="hover:text-blue-400 transition-colors">Preços</a>
+                <a href="#recursos" class="hover:text-blue-400 transition-colors">Recursos</a>
+                <a href="#faq" class="hover:text-blue-400 transition-colors">FAQ</a>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <button onclick="showLoginModal()" 
+                        class="px-6 py-2.5 text-sm font-medium border border-zinc-700 hover:bg-zinc-800 rounded-2xl transition-all">
+                    Entrar
+                </button>
+                <button onclick="showRegisterModal()" 
+                        class="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 font-semibold rounded-2xl transition-all">
+                    Começar grátis
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero-bg pt-24 pb-20">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8">
+                <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-3xl text-sm">
+                    <span class="relative flex h-3 w-3">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                    </span>
+                    5 transcrições GRÁTIS
+                </div>
+                
+                <h1 class="heading-font text-6xl md:text-7xl font-bold leading-tight tracking-tighter">
+                    Transcreva vídeos do YouTube<br>em texto em segundos
+                </h1>
+                
+                <p class="text-xl text-zinc-300 max-w-lg">
+                    IA avançada que transforma qualquer vídeo do YouTube em texto preciso. 
+                    Teste grátis com 5 transcrições completas.
+                </p>
+                
+                <div class="flex flex-wrap gap-4">
+                    <button onclick="showRegisterModal()" 
+                            class="px-8 py-4 bg-white text-zinc-900 font-semibold text-lg rounded-3xl hover:scale-105 transition-all flex items-center gap-3">
+                        <i class="fas fa-play"></i>
+                        Testar agora - Grátis
+                    </button>
+                    <a href="#demo" 
+                       class="px-8 py-4 border border-white/30 hover:bg-white/10 font-medium text-lg rounded-3xl transition-all flex items-center gap-3">
+                        Ver demonstração
+                    </a>
+                </div>
+                
+                <div class="flex items-center gap-8 text-sm pt-4">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-check text-emerald-400"></i>
+                        <span>Sem cartão</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-check text-emerald-400"></i>
+                        <span>Cancelamento fácil</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Demo Video Placeholder -->
+            <div class="relative">
+                <div class="bg-zinc-900 p-3 rounded-3xl video-demo">
+                    <div class="aspect-video bg-black rounded-2xl overflow-hidden relative flex items-center justify-center">
+                        <div class="text-center">
+                            <i onclick="playDemo()" class="fas fa-play-circle text-7xl text-white/80 hover:text-white cursor-pointer transition-colors"></i>
+                            <p class="mt-4 text-zinc-400 text-sm">Demonstração: Como funciona</p>
+                        </div>
+                        <!-- Placeholder for video embed -->
+                        <div id="demo-video" class="hidden w-full h-full absolute inset-0 bg-black flex items-center justify-center">
+                            <iframe width="100%" height="100%" 
+                                    src="https://www.youtube.com/embed/dQw4w9wgxcq" 
+                                    title="Demo" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="absolute -bottom-4 -right-4 bg-zinc-800 border border-zinc-700 rounded-2xl p-4 shadow-2xl max-w-[220px]">
+                    <div class="flex items-center gap-3">
+                        <div class="text-emerald-400">
+                            <i class="fas fa-bolt text-2xl"></i>
+                        </div>
+                        <div>
+                            <div class="text-sm font-medium">Transcrição em</div>
+                            <div class="text-2xl font-bold text-emerald-400">47 segundos</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Bar -->
+    <div class="bg-zinc-900 py-6 border-b border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-wrap justify-center items-center gap-x-12 gap-y-6 opacity-75">
+                <div class="flex items-center gap-2 text-sm">
+                    <i class="fas fa-youtube text-red-500"></i>
+                    <span>Compatível com YouTube</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                    <i class="fas fa-globe"></i>
+                    <span>Suporte a 30+ idiomas</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                    <i class="fas fa-clock"></i>
+                    <span>Resultados em minutos</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>100% Privado</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features -->
+    <section id="recursos" class="py-24 bg-zinc-950">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-blue-400 font-medium tracking-widest text-sm">RECURSOS</span>
+                <h2 class="heading-font text-5xl font-semibold mt-3">Tudo que você precisa</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 hover:border-blue-500/50 transition-all group">
+                    <div class="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-link text-2xl text-blue-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3">Cole o link</h3>
+                    <p class="text-zinc-400">Basta colar o URL do vídeo do YouTube. Sem uploads demorados.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 hover:border-blue-500/50 transition-all group">
+                    <div class="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-magic text-2xl text-emerald-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3">IA Inteligente</h3>
+                    <p class="text-zinc-400">Reconhecimento avançado de fala com pontuação automática, timestamps e formatação.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 hover:border-blue-500/50 transition-all group">
+                    <div class="w-12 h-12 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-file-export text-2xl text-purple-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3">Exporte como quiser</h3>
+                    <p class="text-zinc-400">Baixe em TXT, SRT, PDF ou copie direto para o clipboard.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="py-20 bg-zinc-900 border-t border-b border-zinc-800">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="heading-font text-4xl font-semibold mb-4">Teste agora com um vídeo real</h2>
+                <p class="text-zinc-400">Cole o link abaixo e veja a transcrição funcionando</p>
+            </div>
+            
+            <div class="bg-zinc-800 rounded-3xl p-8">
+                <div class="flex gap-4">
+                    <input id="youtubeUrl" 
+                           type="text" 
+                           value="https://www.youtube.com/watch?v=-VFTBwTxfJg"
+                           class="flex-1 bg-zinc-900 border border-zinc-700 rounded-2xl px-6 py-4 outline-none focus:border-blue-500"
+                           placeholder="Cole o link do YouTube aqui...">
+                    <button onclick="startTranscription()" 
+                            class="px-10 bg-blue-600 hover:bg-blue-500 font-semibold rounded-2xl transition-all">
+                        Transcrever
+                    </button>
+                </div>
+                
+                <div id="transcriptionResult" class="hidden mt-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-semibold">Transcrição:</h3>
+                        <div id="remaining" class="text-sm text-emerald-400"></div>
+                    </div>
+                    <pre id="transcriptionText" class="bg-black p-6 rounded-2xl text-sm max-h-96 overflow-auto whitespace-pre-wrap font-mono"></pre>
+                    
+                    <div class="flex gap-4 mt-6">
+                        <button onclick="copyTranscription()" 
+                                class="flex-1 py-4 border border-zinc-600 hover:bg-zinc-700 rounded-2xl font-medium">
+                            📋 Copiar texto
+                        </button>
+                        <button onclick="downloadTranscription()" 
+                                class="flex-1 py-4 bg-emerald-600 hover:bg-emerald-500 rounded-2xl font-medium">
+                            ⬇️ Baixar TXT
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="loading" class="hidden text-center py-12">
+                    <div class="animate-spin w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full mx-auto"></div>
+                    <p class="mt-4 text-zinc-400">Baixando áudio e transcrevendo... (pode levar até 2 minutos)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="funciona" class="py-24 bg-zinc-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-blue-400 font-medium tracking-widest text-sm">3 PASSOS SIMPLES</span>
+                <h2 class="heading-font text-5xl font-semibold mt-3">Transcreva em minutos</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-10">
+                <div class="text-center">
+                    <div class="mx-auto w-20 h-20 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-4xl font-bold mb-6">1</div>
+                    <h3 class="font-semibold text-2xl mb-2">Cole o link</h3>
+                    <p class="text-zinc-400">Insira o URL do vídeo do YouTube</p>
+                </div>
+                <div class="text-center">
+                    <div class="mx-auto w-20 h-20 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-4xl font-bold mb-6">2</div>
+                    <h3 class="font-semibold text-2xl mb-2">IA processa</h3>
+                    <p class="text-zinc-400">Nossa IA transcreve com alta precisão</p>
+                </div>
+                <div class="text-center">
+                    <div class="mx-auto w-20 h-20 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-4xl font-bold mb-6">3</div>
+                    <h3 class="font-semibold text-2xl mb-2">Baixe o texto</h3>
+                    <p class="text-zinc-400">Edite, copie ou exporte</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trial Info -->
+    <section class="py-20 bg-gradient-to-b from-zinc-900 to-zinc-950 border-t border-b border-zinc-800">
+        <div class="max-w-4xl mx-auto text-center px-6">
+            <div class="inline-flex items-center justify-center gap-2 bg-emerald-900/30 text-emerald-400 px-6 py-3 rounded-3xl mb-8">
+                <i class="fas fa-gift"></i>
+                <span class="font-semibold">Oferta de Boas Vindas</span>
+            </div>
+            <h2 class="heading-font text-5xl font-bold mb-6">5 transcrições completamente grátis</h2>
+            <p class="text-xl text-zinc-300 max-w-md mx-auto">
+                Crie sua conta agora e comece a transcrever vídeos do YouTube imediatamente. 
+                Após as 5 transcrições, escolha o plano mensal para continuar.
+            </p>
+            <button onclick="showRegisterModal()" 
+                    class="mt-10 px-10 py-5 bg-white text-zinc-900 rounded-3xl font-bold text-xl hover:bg-white/90 transition-all inline-flex items-center gap-3">
+                Criar conta grátis
+                <span class="text-emerald-500">→</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="precos" class="py-24 bg-zinc-950">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="heading-font text-5xl font-semibold">Planos simples e transparentes</h2>
+            </div>
+            
+            <div class="max-w-md mx-auto bg-zinc-900 border border-blue-500 rounded-3xl p-10">
+                <div class="text-center">
+                    <div class="text-blue-400 font-semibold">PLANO MENSAL</div>
+                    <div class="mt-6 flex items-baseline justify-center gap-1">
+                        <span class="text-7xl font-bold">R$29</span>
+                        <span class="text-zinc-400">/mês</span>
+                    </div>
+                    <div class="mt-2 text-emerald-400 text-sm font-medium">Transcrições ilimitadas</div>
+                </div>
+                
+                <ul class="mt-10 space-y-4">
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check text-emerald-400 mt-1"></i>
+                        <span>Transcrições ilimitadas</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check text-emerald-400 mt-1"></i>
+                        <span>Exportação em múltiplos formatos</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check text-emerald-400 mt-1"></i>
+                        <span>Suporte prioritário</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check text-emerald-400 mt-1"></i>
+                        <span>Edição colaborativa</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check text-emerald-400 mt-1"></i>
+                        <span>Histórico completo</span>
+                    </li>
+                </ul>
+                
+                <button onclick="subscribePlan()" 
+                        class="w-full mt-12 py-5 bg-blue-600 hover:bg-blue-500 text-lg font-semibold rounded-3xl transition-all">
+                    Assinar agora - R$29/mês
+                </button>
+                <p class="text-center text-xs text-zinc-500 mt-6">Cancele quando quiser</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-24 bg-zinc-900">
+        <div class="max-w-3xl mx-auto px-6">
+            <h2 class="heading-font text-5xl font-semibold text-center mb-16">Perguntas frequentes</h2>
+            
+            <div class="space-y-6">
+                <details class="bg-zinc-800 rounded-3xl p-8 group">
+                    <summary class="flex justify-between items-center cursor-pointer list-none">
+                        <span class="font-medium text-lg">O que acontece após as 5 transcrições grátis?</span>
+                        <i class="fas fa-chevron-down transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <p class="mt-6 text-zinc-400">Após usar as 5 transcrições gratuitas, sua conta será bloqueada até que você assine o plano mensal de R$29.</p>
+                </details>
+                
+                <details class="bg-zinc-800 rounded-3xl p-8 group">
+                    <summary class="flex justify-between items-center cursor-pointer list-none">
+                        <span class="font-medium text-lg">Quanto tempo demora uma transcrição?</span>
+                        <i class="fas fa-chevron-down transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <p class="mt-6 text-zinc-400">A maioria das transcrições fica pronta entre 30 segundos e 3 minutos, dependendo do tamanho do vídeo.</p>
+                </details>
+                
+                <details class="bg-zinc-800 rounded-3xl p-8 group">
+                    <summary class="flex justify-between items-center cursor-pointer list-none">
+                        <span class="font-medium text-lg">A transcrição é precisa?</span>
+                        <i class="fas fa-chevron-down transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <p class="mt-6 text-zinc-400">Nossa IA tem precisão acima de 95% em português e outros idiomas principais. Você pode editar o resultado facilmente.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="py-24 bg-gradient-to-br from-blue-600 to-indigo-700">
+        <div class="max-w-2xl mx-auto text-center px-6">
+            <h2 class="heading-font text-5xl font-bold mb-6">Pronto para começar?</h2>
+            <p class="text-xl mb-10">Crie sua conta e ganhe 5 transcrições gratuitas agora mesmo.</p>
+            <button onclick="showRegisterModal()" 
+                    class="px-12 py-6 bg-white text-zinc-900 font-bold text-2xl rounded-3xl hover:scale-105 transition-all">
+                    Criar conta gratuita
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-16 border-t border-zinc-900">
+        <div class="max-w-7xl mx-auto px-6 text-zinc-400 text-sm">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-blue-600 rounded-2xl flex items-center justify-center text-white font-bold">YT</div>
+                    <span class="heading-font text-2xl font-semibold text-white">TranscribeYT</span>
+                </div>
+                
+                <div class="flex gap-8">
+                    <a href="#" class="hover:text-white">Termos</a>
+                    <a href="#" class="hover:text-white">Privacidade</a>
+                    <a href="#" class="hover:text-white">Contato</a>
+                </div>
+                
+                <div>© 2026 TranscribeYT. Todos os direitos reservados.</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-[100]">
+        <div class="bg-zinc-900 rounded-3xl max-w-md w-full mx-4 overflow-hidden">
+            <div class="p-10">
+                <div class="flex justify-between items-start mb-8">
+                    <div>
+                        <h3 class="text-3xl font-semibold heading-font">Criar conta</h3>
+                        <p class="text-zinc-400 mt-1">Ganhe 5 transcrições grátis</p>
+                    </div>
+                    <button onclick="hideRegisterModal()" class="text-3xl leading-none text-zinc-400 hover:text-white">×</button>
+                </div>
+                
+                <form onsubmit="handleRegister(event)" class="space-y-6">
+                    <div>
+                        <label class="block text-sm mb-2 text-zinc-400">Nome</label>
+                        <input type="text" id="name" required
+                               class="w-full bg-zinc-800 border border-zinc-700 focus:border-blue-500 rounded-2xl px-5 py-4 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-2 text-zinc-400">E-mail</label>
+                        <input type="email" id="email" required
+                               class="w-full bg-zinc-800 border border-zinc-700 focus:border-blue-500 rounded-2xl px-5 py-4 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-2 text-zinc-400">Senha</label>
+                        <input type="password" id="password" required
+                               class="w-full bg-zinc-800 border border-zinc-700 focus:border-blue-500 rounded-2xl px-5 py-4 outline-none">
+                    </div>
+                    
+                    <button type="submit"
+                            class="w-full py-5 bg-blue-600 hover:bg-blue-500 font-semibold text-lg rounded-3xl mt-4">
+                        Criar conta e começar
+                    </button>
+                </form>
+                
+                <p class="text-center text-xs text-zinc-500 mt-8">
+                    Ao criar a conta você concorda com nossos <a href="#" class="underline">Termos de Uso</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-[100]">
+        <div class="bg-zinc-900 rounded-3xl max-w-md w-full mx-4 overflow-hidden">
+            <div class="p-10">
+                <div class="flex justify-between items-start mb-8">
+                    <div>
+                        <h3 class="text-3xl font-semibold heading-font">Entrar</h3>
+                    </div>
+                    <button onclick="hideLoginModal()" class="text-3xl leading-none text-zinc-400 hover:text-white">×</button>
+                </div>
+                
+                <form onsubmit="handleLogin(event)" class="space-y-6">
+                    <div>
+                        <label class="block text-sm mb-2 text-zinc-400">E-mail</label>
+                        <input type="email" required
+                               class="w-full bg-zinc-800 border border-zinc-700 focus:border-blue-500 rounded-2xl px-5 py-4 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-2 text-zinc-400">Senha</label>
+                        <input type="password" required
+                               class="w-full bg-zinc-800 border border-zinc-700 focus:border-blue-500 rounded-2xl px-5 py-4 outline-none">
+                    </div>
+                    
+                    <button type="submit"
+                            class="w-full py-5 bg-white text-zinc-900 font-semibold text-lg rounded-3xl mt-4">
+                        Entrar
+                    </button>
+                </form>
+                
+                <div class="text-center mt-8">
+                    <button onclick="switchToRegister()" class="text-blue-400 hover:underline text-sm">
+                        Não tem conta? Cadastre-se
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showRegisterModal() {
+            document.getElementById('registerModal').classList.remove('hidden');
+            document.getElementById('loginModal').classList.add('hidden');
+        }
+        
+        function hideRegisterModal() {
+            document.getElementById('registerModal').classList.add('hidden');
+        }
+        
+        function showLoginModal() {
+            document.getElementById('loginModal').classList.remove('hidden');
+            document.getElementById('registerModal').classList.add('hidden');
+        }
+        
+        function hideLoginModal() {
+            document.getElementById('loginModal').classList.add('hidden');
+        }
+        
+        function switchToRegister() {
+            hideLoginModal();
+            showRegisterModal();
+        }
+        
+        function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            
+            alert(`Conta criada com sucesso para ${name} (${email})! Você tem 5 transcrições gratuitas disponíveis.`);
+            hideRegisterModal();
+            
+            // Simulate blocking after trial
+            setTimeout(() => {
+                alert("Suas 5 transcrições foram utilizadas. Assine o plano mensal para continuar usando o serviço.");
+            }, 4500);
+        }
+        
+        function handleLogin(e) {
+            e.preventDefault();
+            alert("Login realizado com sucesso! (Simulação)");
+            hideLoginModal();
+        }
+        
+        function subscribePlan() {
+            alert("Redirecionando para página de pagamento... (Simulação)\n\nPlano mensal R$29 ativado!");
+        }
+        
+        function playDemo() {
+            const placeholder = document.querySelector('.aspect-video');
+            const iframeContainer = document.getElementById('demo-video');
+            placeholder.classList.add('hidden');
+            iframeContainer.classList.remove('hidden');
+        }
+        
+        // Demo Transcription
+        let currentTranscription = '';
+        let currentFile = '';
+
+        async function startTranscription() {
+            const urlInput = document.getElementById('youtubeUrl');
+            const url = urlInput.value.trim();
+            const resultDiv = document.getElementById('transcriptionResult');
+            const loadingDiv = document.getElementById('loading');
+            
+            if (!url) {
+                alert('Por favor, cole um link do YouTube');
+                return;
+            }
+            
+            loadingDiv.classList.remove('hidden');
+            resultDiv.classList.add('hidden');
+            
+            try {
+                const response = await fetch('/transcribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        url: url,
+                        email: 'demo@example.com' 
+                    })
+                });
+                
+                const data = await response.json();
+                
+                loadingDiv.classList.add('hidden');
+                
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+                
+                currentTranscription = data.full_text || data.transcription;
+                currentFile = data.file;
+                
+                document.getElementById('transcriptionText').textContent = currentTranscription;
+                document.getElementById('remaining').textContent = `Transcrições restantes: ${data.remaining || 0}`;
+                resultDiv.classList.remove('hidden');
+                
+            } catch (error) {
+                loadingDiv.classList.add('hidden');
+                alert('Erro ao conectar com o servidor. Verifique se o backend está rodando.');
+            }
+        }
+        
+        function copyTranscription() {
+            navigator.clipboard.writeText(currentTranscription);
+            const btn = event.target;
+            const original = btn.textContent;
+            btn.textContent = '✅ Copiado!';
+            setTimeout(() => btn.textContent = original, 2000);
+        }
+        
+        function downloadTranscription() {
+            if (currentFile) {
+                window.open(currentFile, '_blank');
+            } else {
+                const blob = new Blob([currentTranscription], { type: 'text/plain' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'transcricao.txt';
+                a.click();
+            }
+        }
+        
+        // Tailwind script already included via CDN
+        console.log('%cTranscribeYT Landing Page + Backend carregada com sucesso!', 'color: #3b82f6; font-weight: bold');
+    </script>
+</body>
+</html>
